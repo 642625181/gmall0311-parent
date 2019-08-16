@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper>
+    <select id="getOrderAmount" resultType="java.lang.Double">
+
+    </select>
+</mapper>
+
+<mapper>
+    <select id="getOrderHourAmout" resultType="hourMap">
+
+    </select>
+    <resultMap id="hourMap" type="">
+
+    </resultMap>
+</mapper>
