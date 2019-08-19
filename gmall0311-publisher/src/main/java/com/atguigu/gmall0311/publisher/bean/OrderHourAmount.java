@@ -1,7 +1,9 @@
 package com.atguigu.gmall0311.publisher.bean;
 
+import lombok.Data;
 
+@Data
 public class OrderHourAmount {
-    private String cteateHour;
-    private String sumOrderAmout;
+    private String createHour;
+    private Double sumOrderAmout;
 }

@@ -22,7 +22,7 @@ public class publisherController {
     @GetMapping("realtime-total")
     public String getTotal(@RequestParam("date") String date) {
         Long dauTotal = publisherService.getDauTotal(date);
-        List<Map> totalList = new ArrayList<>();
+           List<Map> totalList = new ArrayList<>();
         Map dauMap = new HashMap();
         dauMap.put("id", "dau");
         dauMap.put("name", "新增日活");
@@ -34,6 +34,14 @@ public class publisherController {
         newMidMap.put("name", "新增设备");
         newMidMap.put("value", 33333);
         totalList.add(newMidMap);
+
+        Map orderAmoutMap = new HashMap();
+        orderAmoutMap.put("id", "order_amount");
+        orderAmoutMap.put("name","新增交易额");
+        Double orderAmount = publisherService.getOrderAmount(date);
+        orderAmoutMap.put("value",orderAmount);
+        totalList.add(orderAmoutMap);
+
 
         String string = JSON.toJSONString(totalList);
 
@@ -53,8 +61,15 @@ public class publisherController {
             dauMap.put("yesterday",dauHourCountYDayMap);
 
             return JSON.toJSONString(dauMap);
-        }else {
+        }else if ("order_amount".equals(id)){
+            Map<String,Double> orderHourAmountTodayMap = publisherService.getOrderHourAmount(date);
 
+            String ydate = getYesterdayString(date);
+            Map<String, Double> orderHourAmountYdate = publisherService.getOrderHourAmount(ydate);
+
+            Map orderAmountMap = new HashMap();
+            orderAmountMap.put("today",orderHourAmountTodayMap);
+            orderAmountMap.put("yesterday",orderHourAmountYdate);
         }
 
         return null;

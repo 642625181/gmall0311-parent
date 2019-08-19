@@ -10,13 +10,13 @@ import com.atguigu.gmall0311.realtime.bean.StartupLog
 import com.atguigu.gmall0311.realtime.util.MyKafkaUtil
 import org.apache.hadoop.conf.Configuration
 import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.phoenix.spark._
 import org.apache.spark.SparkConf
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.dstream.{DStream, InputDStream}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import redis.clients.jedis.Jedis
-import org.apache.phoenix.spark._
 
 object DauApp {
   def main(args: Array[String]): Unit = {
@@ -54,6 +54,8 @@ object DauApp {
       val filteredRDD: RDD[StartupLog] = rdd.filter { startupLog => //executor
         !dauBC.value.contains(startupLog.mid)
       }
+
+
       println("过滤后： " + filteredRDD.count())
       filteredRDD
 
